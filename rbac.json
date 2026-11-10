@@ -1,0 +1,34 @@
+{
+  "version_id": "<from openrun server show-config>",
+  "rbac": {
+    "roles": {
+      "ops": ["custom:svc_restart"]
+    },
+    "grants": [
+      {
+        "description": "Engineering uses the eng and tasks apps",
+        "users": ["group:eng"],
+        "roles": ["openrun-user"],
+        "targets": ["/eng/**", "/tasks/**"]
+      },
+      {
+        "description": "Ops runs the service tools, restart included",
+        "users": ["group:ops"],
+        "roles": ["openrun-user", "ops"],
+        "targets": ["/ops/**"]
+      },
+      {
+        "description": "Support gets the read-only task view and service status",
+        "users": ["group:support"],
+        "roles": ["openrun-user"],
+        "targets": ["/tasks/view", "/ops/**"]
+      },
+      {
+        "description": "Shared apps are open to everyone",
+        "users": ["*"],
+        "roles": ["openrun-user"],
+        "targets": ["/shared/**", "docs.localhost:**"]
+      }
+    ]
+  }
+}
